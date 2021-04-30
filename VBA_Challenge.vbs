@@ -19,6 +19,7 @@ Sub stockprices2()
     
         'headers
         Range("I1") = "Ticker"
+        'set first values to create a range
         Range("I2") = Range("A2")
         Range("J1") = "Yearly Change"
         Range("K1") = "Percent Change"
@@ -44,8 +45,10 @@ Sub stockprices2()
                 Cells(nrows2, 10).Value = Cells(i, 6).Value - openVal
                 'color format for change
                 If Cells(nrows2, 10).Value >= 0 Then
+                    'green
                     Cells(nrows2, 10).Interior.ColorIndex = 4
                 Else
+                    'red
                     Cells(nrows2, 10).Interior.ColorIndex = 3
                 End If
                 '0 check for open values. Causes error if not
@@ -67,6 +70,7 @@ Sub stockprices2()
         perIncrease = 0
         greatVol = 0
         
+        'assigns new values if the cell is greater than current
         For j = 2 To nrows2 - 1
             If Cells(j, 11).Value > perIncrease Then
                 perIncrease = Cells(j, 11).Value
@@ -78,15 +82,17 @@ Sub stockprices2()
             End If
         Next j
         
+        'starts at max
         perDecrease = perIncrease
-               
+
+        'assigns value if cell is less than current       
         For j = 2 To nrows2 - 1
             If Cells(j, 11).Value < perDecrease Then
                 perDecrease = Cells(j, 11).Value
                 tickDec = Cells(j, 9).Value
             End If
         Next j
-       
+       'Headers for max and min
         Range("P2") = tickInc
         Range("Q2") = perIncrease
         Range("P3") = tickDec
@@ -94,6 +100,7 @@ Sub stockprices2()
         Range("P4") = tickVol
         Range("Q4") = greatVol
         
+        'format
         Range("J1", Range("J1").End(xlDown)).NumberFormat = "0.00"
         Range("K1", Range("K1").End(xlDown)).NumberFormat = "0.00%"
         Range("Q2", "Q3").NumberFormat = "0.00%"
